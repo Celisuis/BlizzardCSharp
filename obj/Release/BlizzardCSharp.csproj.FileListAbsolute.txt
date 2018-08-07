@@ -1,0 +1,6 @@
+D:\Visual Studio Projects\BlizzardCSharp\bin\Release\BlizzardCSharp.dll
+D:\Visual Studio Projects\BlizzardCSharp\bin\Release\BlizzardCSharp.pdb
+D:\Visual Studio Projects\BlizzardCSharp\obj\Release\BlizzardCSharp.csproj.CoreCompileInputs.cache
+D:\Visual Studio Projects\BlizzardCSharp\obj\Release\BlizzardCSharp.dll
+D:\Visual Studio Projects\BlizzardCSharp\obj\Release\BlizzardCSharp.pdb
+D:\Visual Studio Projects\BlizzardCSharp\obj\Release\BlizzardCSharp.csprojAssemblyReference.cache

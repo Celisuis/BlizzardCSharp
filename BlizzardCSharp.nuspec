@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Ryan Macham</authors>
+    <owners>$author$</owners>
+    <projectUrl>https://github.com/Celisuis/BlizzardAPICSharpWrapper</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A C# Wrapper targeting Blizzard Games</description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>Blizzard Games</tags>
+  </metadata>
+</package>
