@@ -143,10 +143,12 @@ namespace BlizzardCSharp.Connections
             return new Character(JObject.Parse(request.Response));
         }
 
-        public Character GetCharacterProfile(string realm, string character, string field)
+        public Character GetCharacterProfile(string realm, string character, CharacterFields field)
         {
+            string fieldInput = field.ToString();
+
             Request request = new Request(User_Agent);
-            request.Get($"{Api_Url}wow/character/{realm}/{character}?fields={field}&locale={Locale}&apikey={Api_Key}");
+            request.Get($"{Api_Url}wow/character/{realm}/{character}?fields={fieldInput}&locale={Locale}&apikey={Api_Key}");
             return new Character(JObject.Parse(request.Response));
         }
         #endregion
@@ -168,10 +170,12 @@ namespace BlizzardCSharp.Connections
             return new Guild(JObject.Parse(request.Response));
         }
 
-        public Guild GetGuildProfile(string realm, string guild, string field)
+        public Guild GetGuildProfile(string realm, string guild, GuildFields field)
         {
+            string fieldInput = field.ToString();
+
             Request request = new Request(User_Agent);
-            request.Get($"{Api_Url}wow/guild/{realm}/{guild}?fields={field.ToLower()}&locale={Locale}&apikey={Api_Key}");
+            request.Get($"{Api_Url}wow/guild/{realm}/{guild}?fields={fieldInput}&locale={Locale}&apikey={Api_Key}");
             return new Guild(JObject.Parse(request.Response));
         }
         #endregion
@@ -594,12 +598,7 @@ namespace BlizzardCSharp.Connections
             request.Get($"{Api_Url}wow/data/talents?locale={Locale}&apikey={Api_Key}");
 
             List<Talent> TalentMasterList = new List<Talent>();
-            List<Character.Spec> SpecMasterList = new List<Character.Spec>();
-
-            foreach (JObject TalentObjectList in JObject.Parse(request.Response)[classID]["specs"])
-            {
-                SpecMasterList.Add(new Character.Spec(TalentObjectList));
-            }
+           
             foreach (JArray TalentObject in JObject.Parse(request.Response)[classID]["talents"])
             {
                 foreach (JArray TalentObjects in TalentObject)
@@ -614,6 +613,66 @@ namespace BlizzardCSharp.Connections
             return TalentMasterList;
 
         }
+
+        #region Specs
+        public List<Specialization> GetClassSpecializations(CharacterClass characterClass)
+        {
+
+            string classID = String.Empty;
+
+            switch (characterClass)
+            {
+                case CharacterClass.Warrior:
+                    classID = "1";
+                    break;
+                case CharacterClass.Paladin:
+                    classID = "2";
+                    break;
+                case CharacterClass.Hunter:
+                    classID = "3";
+                    break;
+                case CharacterClass.Rogue:
+                    classID = "4";
+                    break;
+                case CharacterClass.Priest:
+                    classID = "5";
+                    break;
+                case CharacterClass.DeathKnight:
+                    classID = "6";
+                    break;
+                case CharacterClass.Shaman:
+                    classID = "7";
+                    break;
+                case CharacterClass.Mage:
+                    classID = "8";
+                    break;
+                case CharacterClass.Warlock:
+                    classID = "9";
+                    break;
+                case CharacterClass.Monk:
+                    classID = "10";
+                    break;
+                case CharacterClass.Druid:
+                    classID = "11";
+                    break;
+                case CharacterClass.DemonHunter:
+                    classID = "12";
+                    break;
+
+            }
+            Request request = new Request(User_Agent);
+            request.Get($"{Api_Url}wow/data/talents?locale={Locale}&apikey={Api_Key}");
+
+            List<Specialization> SpecMasterList = new List<Specialization>();
+
+            foreach (JObject TalentObjectList in JObject.Parse(request.Response)[classID]["specs"])
+            {
+                SpecMasterList.Add(new Specialization(TalentObjectList));
+            }
+
+            return SpecMasterList;
+        }
+        #endregion
 
         #endregion
 

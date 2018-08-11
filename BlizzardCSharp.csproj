@@ -106,10 +106,12 @@
     <Compile Include="Games\WoW\Raid.cs" />
     <Compile Include="Games\WoW\Realm.cs" />
     <Compile Include="Games\WoW\Recipe.cs" />
+    <Compile Include="Games\WoW\Specialization.cs" />
     <Compile Include="Games\WoW\Spell.cs" />
     <Compile Include="Games\WoW\Talent.cs" />
     <Compile Include="Games\Diablo\TimePlayed.cs" />
     <Compile Include="Games\WoW\Zone.cs" />
+    <Compile Include="Helpers\DownloadHelper.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="OverwatchClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

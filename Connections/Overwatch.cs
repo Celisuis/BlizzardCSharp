@@ -36,6 +36,21 @@ namespace BlizzardCSharp.Connections
             return new Profile(JObject.Parse(request.Response));
         }
 
+        public OverallStats RetrieveStats(string battleTag, MatchType matchType)
+        {
+            Request request = new Request(User_Agent);
+            request.Get($"{API_Url}{battleTag}");
+            JObject profileData = JObject.Parse(request.Response);
+            switch(matchType)
+            {
+                case MatchType.QuickPlay:
+                    return new OverallStats(JObject.Parse(profileData["quickPlayStats"].ToString()));
+                case MatchType.Competitive:
+                    return new OverallStats(JObject.Parse(profileData["competitiveStats"].ToString()));
+            }
+
+            return null;    
+        }
 
 
         public HeroStats RetrieveSpecificHeroStats(string battleTag, MatchType matchType, string heroName)

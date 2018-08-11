@@ -28,7 +28,7 @@ namespace BlizzardCSharp.Connections
 
         #region API_Functions
         #region Acts
-        public List<Act> GetActIndex()
+        public List<Act> GetActMasterList()
         {
             Request request = new Request(User_Agent);
             request.Get($"{Api_Url}d3/data/act?locale={Locale}&apikey={Api_Key}");
@@ -54,8 +54,9 @@ namespace BlizzardCSharp.Connections
         #endregion
 
         #region Artisans
-        public Artisan GetArtisan(string artisanSlug)
+        public Artisan GetArtisan(ArtisanType artisan)
         {
+            string artisanSlug = artisan.ToString().ToLower();
             Request request = new Request(User_Agent);
             request.Get($"{Api_Url}d3/data/artisan/{artisanSlug}?locale={Locale}&apikey={Api_Key}");
             return new Artisan(JObject.Parse(request.Response));
@@ -65,8 +66,9 @@ namespace BlizzardCSharp.Connections
 
         #region Recipes
 
-        public Recipe GetRecipe(string recipeSlug, string artisanSlug)
+        public Recipe GetRecipe(string recipeSlug, ArtisanType artisan)
         {
+            string artisanSlug = artisan.ToString().ToLower();
             Request request = new Request(User_Agent);
             request.Get($"{Api_Url}d3/data/artisan/{artisanSlug}/recipe/{recipeSlug}?locale={Locale}&apikey={Api_Key}");
             return new Recipe(JObject.Parse(request.Response));
@@ -75,8 +77,10 @@ namespace BlizzardCSharp.Connections
         #endregion
 
         #region Followers
-        public Follower GetFollower(string followerSlug)
+        public Follower GetFollower(FollowerType follower)
         {
+            string followerSlug = follower.ToString().ToLower();
+
             Request request = new Request(User_Agent);
             request.Get($"{Api_Url}d3/data/follower/{followerSlug}?locale={Locale}&apikey={Api_Key}");
             return new Follower(JObject.Parse(request.Response));
@@ -107,7 +111,7 @@ namespace BlizzardCSharp.Connections
 
         #region Items
 
-        public List<ItemType> GetItemTypeIndex()
+        public List<ItemType> GetItemTypeMasterList()
         {
             Request request = new Request(User_Agent);
             request.Get($"{Api_Url}d3/data/item-type?locale={Locale}&apikey={Api_Key}");
@@ -202,5 +206,20 @@ namespace BlizzardCSharp.Connections
         }
         #endregion
         #endregion
+    }
+
+    public enum ArtisanType
+    {
+        Blacksmith,
+        Mystic,
+        Jeweler
+
+    }
+
+    public enum FollowerType
+    {
+        Templar,
+        Enchantress,
+        Scoundrel
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlizzardCSharp.Connections;
+using BlizzardCSharp.Helpers;
 
 namespace BlizzardCSharp
 {
@@ -24,7 +25,11 @@ namespace BlizzardCSharp
 
         const string User_Agent = "";
 
-        public Overwatch Overwatch { get; internal set; }
+        public static string RawJSON;
+
+        public static Dictionary<string, string> RawJSONDictionary;
+
+        public Overwatch API { get; internal set; }
 
         #region Methods
 
@@ -87,7 +92,25 @@ namespace BlizzardCSharp
                 API_URL = $@"https://overwatch-api.tekrop.fr/";
             }
 
-            Overwatch = new Overwatch(this, API_URL, regionID, platformID, User_Agent);
+            API = new Overwatch(this, API_URL, regionID, platformID, User_Agent);
+        }
+
+        public void DownloadJSON(string filePath)
+        {
+            DownloadHelper.DownloadJSON(RawJSON, filePath);
+        }
+
+        public void SaveJSON(string fileName)
+        {
+            RawJSONDictionary.Add($"{fileName}.json", RawJSON);
+        }
+
+        public void DownloadAllJSON(string filePath)
+        {
+            foreach (KeyValuePair<string, string> kvp in RawJSONDictionary)
+            {
+                DownloadHelper.DownloadJSON(kvp.Value, filePath + kvp.Key);
+            }
         }
 
         public OverwatchRegion RetrieveRegion()

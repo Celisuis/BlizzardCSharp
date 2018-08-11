@@ -1,10 +1,10 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlizzardCSharp.Connections;
-
+using BlizzardCSharp.Helpers;
 
 namespace BlizzardCSharp
 {
@@ -31,6 +31,10 @@ namespace BlizzardCSharp
         public WorldOfWarcraft WorldOfWarcraft { get; internal set; }
         public Diablo Diablo { get; internal set; }
 
+        public static string RawJSON;
+
+        public static Dictionary<string, string> RawJSONDictionary;
+
         #endregion
 
         #region Methods
@@ -45,12 +49,12 @@ namespace BlizzardCSharp
             API_Secret = secret;
             API_Region = region;
             API_Locale = locale;
-
             OAuth_URL = $@"https://{region.ToString().ToLower()}.battle.net/";
             API_URL = $@"https://{region.ToString().ToLower()}.api.battle.net/";
 
             WorldOfWarcraft = new WorldOfWarcraft(this, API_URL, API_Locale.ToString(), API_Key, User_Agent);
             Diablo = new Diablo(this, API_URL, API_Locale.ToString(), API_Key, User_Agent);
+            RawJSONDictionary = new Dictionary<string, string>();
             List<string> connectionstesturls = new List<string>
             {
                 $"{API_URL}wow/achievement/2144?locale={API_Locale}&apikey={API_Key}",
@@ -70,6 +74,24 @@ namespace BlizzardCSharp
 
             connectionstesturls = new List<string>();
 
+        }
+
+        public void DownloadJSON(string filePath)
+        {
+            DownloadHelper.DownloadJSON(RawJSON, filePath);
+        }
+
+        public void SaveJSON(string fileName)
+        {
+            RawJSONDictionary.Add($"{fileName}.json", RawJSON);
+        }
+
+        public void DownloadAllJSON(string filePath)
+        {
+            foreach(KeyValuePair<string, string> kvp in RawJSONDictionary)
+            {
+                DownloadHelper.DownloadJSON(kvp.Value, filePath + kvp.Key);
+            }
         }
 
         public Region RetrieveRegion()
@@ -176,9 +198,7 @@ namespace BlizzardCSharp
         es_MX
     }
 
-    public enum API_Source
-    {
-        Blizzard,
-        TradeSkillMaster
-    }
+
+
+
 }

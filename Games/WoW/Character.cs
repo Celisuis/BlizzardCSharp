@@ -178,39 +178,7 @@ namespace BlizzardCSharp.Games.WoW
         }
         #endregion
 
-        #region Character Specialization
-
-        public class Spec
-        {
-            public string Name { get; internal set; }
-
-            public string Role { get; internal set; }
-
-            public string BackgroundImage { get; internal set; }
-
-            public string Icon { get; internal set; }
-
-            public string Description { get; internal set; }
-
-            public int Order { get; internal set; }
-
-            public Spec(JObject SpecObject)
-            {
-                if (SpecObject["name"] != null)
-                    Name = SpecObject["name"].ToString();
-                if (SpecObject["role"] != null)
-                    Role = SpecObject["role"].ToString();
-                if (SpecObject["backgroundImage"] != null)
-                    BackgroundImage = SpecObject["backgroundImage"].ToString();
-                if (SpecObject["icon"] != null)
-                    Icon = SpecObject["icon"].ToString();
-                if (SpecObject["description"] != null)
-                    Description = SpecObject["description"].ToString();
-                if (SpecObject["order"] != null)
-                    Order = int.Parse(SpecObject["order"].ToString());
-            }
-        }
-        #endregion
+       
 
         #region Character Professions
 
@@ -1021,7 +989,7 @@ namespace BlizzardCSharp.Games.WoW
 
                 public Spell Spell { get; internal set; }
 
-                public Spec Spec { get; internal set; }
+                public Specialization Spec { get; internal set; }
 
                 public IndividualTalent(JObject TalentObject)
                 {
@@ -1032,7 +1000,7 @@ namespace BlizzardCSharp.Games.WoW
                     if (TalentObject["spell"] != null)
                         Spell = new Spell(JObject.Parse(TalentObject["spell"].ToString()));
                     if (TalentObject["spec"] != null)
-                        Spec = new Spec(JObject.Parse(TalentObject["spec"].ToString()));
+                        Spec = new Specialization(JObject.Parse(TalentObject["spec"].ToString()));
                 }
             }
             public bool Selected { get; internal set; }
@@ -1287,7 +1255,7 @@ namespace BlizzardCSharp.Games.WoW
 
         public string Thumbnail { get; internal set; }
 
-        public Spec Specialization { get; internal set; }
+        public Specialization Specialization { get; internal set; }
 
         public CharacterGuild Guild { get; internal set; }
 
@@ -1424,7 +1392,7 @@ namespace BlizzardCSharp.Games.WoW
                 }
             }
             if (rawData["spec"] != null && rawData["spec"].HasValues)
-                Specialization = new Character.Spec(JObject.Parse(rawData["spec"].ToString()));
+                Specialization = new Specialization(JObject.Parse(rawData["spec"].ToString()));
             if (rawData["statistics"] != null && rawData["statistics"].HasValues)
                 CharacterStatistics = new Statistics(JObject.Parse(rawData["statistics"].ToString()));
             if (rawData["stats"] != null && rawData["stats"].HasValues)

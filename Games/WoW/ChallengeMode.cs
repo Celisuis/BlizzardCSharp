@@ -123,14 +123,14 @@ namespace BlizzardCSharp.Games.WoW
             {
                 public Character GroupMember { get; internal set; }
 
-                public Character.Spec CharacterSpec { get; internal set; }
+                public Specialization CharacterSpec { get; internal set; }
 
                 public ChallengeModeGroupMember(JObject GroupMemberObject)
                 {
                     if (GroupMemberObject["character"] != null && GroupMemberObject["character"].HasValues)
                         GroupMember = new Character(JObject.Parse(GroupMemberObject["character"].ToString()));
                     if (GroupMemberObject["spec"] != null && GroupMemberObject["spec"].HasValues)
-                        CharacterSpec = new Character.Spec(JObject.Parse(GroupMemberObject["spec"].ToString()));
+                        CharacterSpec = new Specialization(JObject.Parse(GroupMemberObject["spec"].ToString()));
                 }
             }
 

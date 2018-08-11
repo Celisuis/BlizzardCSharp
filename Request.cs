@@ -67,6 +67,7 @@ namespace BlizzardCSharp
         {
             try
             {
+
                 var webRequest = (HttpWebRequest)WebRequest.Create(url);
                 webRequest.Method = "GET";
                 webRequest.UserAgent = User_Agent;
@@ -93,6 +94,8 @@ namespace BlizzardCSharp
                     this.Response = response;
                     this.HeaderCollection = HeaderCollection;
                 }
+
+                Client.RawJSON = Response;
             }
             catch (WebException e)
             {

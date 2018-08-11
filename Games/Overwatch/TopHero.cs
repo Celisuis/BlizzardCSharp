@@ -42,7 +42,7 @@ namespace BlizzardCSharp.Games.Overwatch
             if (rawData["multiKillBest"] != null)
                 BestMultiKill = int.Parse(rawData["multiKillBest"].ToString());
             if (rawData["objectiveKills"] != null)
-                ObjectiveKills = int.Parse(rawData["objectiveKills"].ToString());
+                ObjectiveKills = int.Parse(rawData["objectiveKills"].ToString());   
         }
     }
 }
