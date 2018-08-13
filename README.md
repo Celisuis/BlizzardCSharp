@@ -1,10 +1,9 @@
 ### Installation
 
-You have 3 options for installation:
-
-- Download and Compile the Source
-- Grab the Release DLL 
-- Install from Nuget
+Nuget
+```
+  PM > Install-Package BlizzardCSharp
+```  
 
 ## Nuget
 
