@@ -35,3 +35,10 @@ List<Pet> PetList = character.BattlePets.CollectedList;
 ```
 
 This works because we are telling the API that we want the Pet information, by passing the CharacterFields enum.
+
+
+### Credits
+
+-  Nick-Strohm because his BattleNET library was instrumental in learning how to parse and use JSON properly within c#. 
+- Blizzard for Official APIs
+- Ovrstat and Tekrop for providing Unofficial Overwatch APIs
